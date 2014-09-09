@@ -1,6 +1,7 @@
 "use-strict";
 
 const 
+	prompt = require("prompt"),
 	Person = require("./model").Person,
 	List = require("./collections").List,
 	people = new List('people');
@@ -10,41 +11,56 @@ require("./exit").init({
 	sigint: {actions: [people.saveSync, process.exit]}
 });
 
-// people.load("path-to-persisted-list");
-
-//people.add(new Person("", "Daneille", "Shubert", "Female", "03/07/1987", "Yucaipa, California, United States"));
-//people.add(new Person("", "John", "Fraboni", "Male", "05/17/1970", "North Bay, Ontario, Canada"));
-
 people.on('loaded', function () {
-	console.log('app caught loaded');
-	console.log(people.list);
+	promptUser();
 });
 
 people.load('people.json');
 
-var count = 1;
-for (var index in people.list) {
-	console.log("The %d person in the list is %s", count, people.list[index].fullName());	
-	count++;
+function promptUser() {
+	var properties = [
+		{
+		  name: 'input', 
+		  validator: /^[1-9q]+$/, ///^[1-9\s\,]+$/,
+		  message: 'Contacts\n(1) Show (2) Add (q) Quit' ,
+          required: true,
+		  warning: 'Invalid input!'
+		}
+	];
+
+	prompt.start();
+
+	prompt.get(properties, function (err, result) {
+		if (err) { return onErr(err); }
+		switch(result.input) {
+		    case 1:
+		        showContacts();
+		        break;
+		    case 2:
+		        addContact();
+		        break;
+		}
+	});
+
+	function onErr(err) {
+		console.log(err);
+		return 1;
+	};
+};
+
+function showContacts(id) {
+	console.log('showing record not implemented yet...');
 }
 
-// function exitHandler(options, err) {
-//     if (options.save) {
-//     	people.saveSync();
-//     }
-//     if (err) console.log(err.stack);
-//     if (options.exit) process.exit();
-// }
+function addContact(id) {
+	console.log('showing record not implemented yet...');
+}
 
-// // do something when app is closing
-// process.on('exit', exitHandler.bind(null, {save: true}));
 
-// // catches ctrl+c event
-// process.on('SIGINT', exitHandler.bind(null, {save: true, exit: true}));
+// people.load("path-to-persisted-list");
 
-// // catches uncaught exceptions
-// process.on('uncaughtException', exitHandler.bind(null, {exit: true}));
-
+//people.add(new Person("", "Daneille", "Shubert", "Female", "03/07/1987", "Yucaipa, California, United States"));
+//people.add(new Person("", "John", "Fraboni", "Male", "05/17/1970", "North Bay, Ontario, Canada"));
 
 // john.on('spoke', function (person, statement) {
 // 	console.log('%s said %s', person.fullName(), statement);
