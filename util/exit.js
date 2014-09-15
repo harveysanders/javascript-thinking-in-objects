@@ -18,7 +18,7 @@ exports.init = function(options) {
 	process.on('SIGINT', onExit.bind(null, options.sigint));
 	process.on('uncaughtException', onExit.bind(null, options.uncaughtException));	
 
-	var msg = 'exit initiatlized with ';
+	var msg = 'Module exit initialized with ';
 	for (var key in options) {
 		msg += key + ', ';
 	}

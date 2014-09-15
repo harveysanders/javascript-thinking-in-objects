@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/jfraboni/javascript-everything-is-an-object",
   "dependencies": {
+    "cli-table": "^0.3.0",
     "prompt": "^0.2.13"
   }
 }
