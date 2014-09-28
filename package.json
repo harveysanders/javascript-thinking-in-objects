@@ -8,16 +8,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jfraboni/javascript-everything-is-an-object.git"
+    "url": "https://github.com/jfraboni/javascript-thinking-in-objects.git"
   },
   "author": "jfraboni",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jfraboni/javascript-everything-is-an-object/issues"
+    "url": "https://github.com/jfraboni/javascript-thinking-in-objects/issues"
   },
-  "homepage": "https://github.com/jfraboni/javascript-everything-is-an-object",
+  "homepage": "https://github.com/jfraboni/javascript-thinking-in-objects",
   "dependencies": {
     "cli-table": "^0.3.0",
-    "prompt": "^0.2.13"
+    "csv": "^0.4.0",
+    "deep-extend": "^0.2.11",
+    "prompt": "^0.2.13",
+    "tsv": "^0.2.0"
   }
 }

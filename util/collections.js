@@ -1,90 +1,81 @@
 "use-strict";
 
-const 
+const
+    freezer = require("./freezer"),
     fs = require('fs'),
-    util = require('util'),
+    deepExtend = require('deep-extend'),
     EventEmitter = require('events').EventEmitter;
 
-var List = function(filepath, deserialize) {
-    this.filepath = filepath;
-    this.deserialize = deserialize;
-    this.list = [];
-};
-util.inherits(List, EventEmitter);
+/**
+ * makeList A factory that returns an Array wrapper that supports serializing 
+ * and deserializing.
+ * @param {string} filepath The path to the file where the List data is 
+ *      serialized.
+ * @param {Function} deserialize A Function used to deserialize data loaded 
+ *      from the filepath.
 
-List.prototype.add = function (item) {
-    this.list.push(item);
-    return this.list.length;
-};
-
-List.prototype.remove = function (item) {
-    var index = this.list.indexOf(item);
-    if (index) {
-        return this.list.splice(index, 1)[0];
-    }
-    return null;
-};
-
-List.prototype.save = function () {
-    var self = this;
-    fs.writeFile(this.filepath, serialize(this.filepath, this.list), function (err) {
-        if (err) throw err;
-        console.log('List.save: List saved');
-        self.emit('saved');
-    });
-};
-
-List.prototype.load = function (filepath) {
-    var self = this;
-    filepath = filepath ? filepath : this.filepath;
-    fs.exists(filepath, function (exists) {
-        if (exists) {
-        fs.readFile(filepath, function (err, data) {
-                if (err) console.log(err);
-                var parsed;
-                try {
-                    parsed = JSON.parse(data);
-                } catch (err) {
-                    console.log('List.load > fs.fileRead : There was an error parsing JSON data:');
-                    console.log(err);
+ * @extends {events.EventEmitter}
+ */
+function makeList(filepath, deserialize) {
+    var _list = {
+        filepath:    filepath,
+        deserialize: deserialize,
+        values:        [],
+        
+        add: function (item) {
+            _list.values.push(item);
+            return _list.values.length;
+        },
+        
+        remove: function (item) {
+            var index =_list.values.indexOf(item);
+            if (index) {
+                return _list.values.splice(index, 1)[0];
+            }
+            return null;
+        },
+        
+        save: function () {
+            fs.writeFile(_list.filepath, freezer.serialize(this.filepath, this.values), function (err) {
+                if (err) throw err;
+                console.log('List.save: List saved');
+                _list.emit('saved');
+            });
+        },
+        
+        saveSync: function () {
+            fs.writeFileSync(_list.filepath, freezer.serialize(_list.filepath, _list.values));
+            console.log('List.saveSync: saved synchronously');
+        },
+        
+        load: function (filepath) {
+            filepath = filepath ? filepath : _list.filepath;
+            fs.exists(filepath, function (exists) {
+                if (exists) {
+                fs.readFile(filepath, function (err, data) {
+                        if (err) console.log(err);
+                        var parsed;
+                        try {
+                            parsed = JSON.parse(data);
+                        } catch (err) {
+                            console.log('List.load > fs.fileRead : There was an error parsing JSON data:');
+                            console.log(err);
+                        }
+                        if (parsed) {
+                            for (var i = 0; i < parsed.length; i++) {
+                                _list.values.push(_list.deserialize(parsed[i]));
+                            }
+                        }
+                        _list.emit('loaded');
+                    });     
+                } else {
+                    console.log('List.load: No file found at %s', filepath);
+                    _list.emit('loaded');
                 }
-                if (parsed) {
-                    for (var i = 0; i < parsed.length; i++) {
-                        self.list.push(self.deserialize(parsed[i]));
-                    }
-                }
-                self.emit('loaded');
-            });     
-        } else {
-            console.log('List.load: No file found at %s', filepath);
-            self.emit('loaded');
+            });
         }
-    });
-};
-
-List.prototype.saveSync = function () {
-    fs.writeFileSync(this.filepath, serialize(this.filepath, this.list));
-    console.log('List.saveSync: saved synchronously');
-};
-
-function serialize(filepath, object) {
-    const extension = /\.[0-9a-z]+$/i.exec(filepath)[0];
-    var serialized;
-    switch(extension) {
-        case ".json":
-            serialized = JSON.stringify(object);	
-            break;
-        case ".cvs":
-            // TODO add cvs serialization //
-            //serialized = 
-            console.warn('cvs serialization not implemented');
-            break;
-        default:
-            console.log('serialize: %s is an unrecognized extension. Falling back on JSON pretty-printed!', extension);
-            serialized = JSON.stringify(object, undefined, 2);
-            break;
-    }
-    return serialized;
+    };
+    deepExtend(_list, new EventEmitter());
+    return _list;
 }
-
-exports.List = List;
+module.exports.makeList = makeList;

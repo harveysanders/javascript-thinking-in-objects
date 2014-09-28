@@ -1,18 +1,25 @@
 'use-strict';
 
-var Person = function(firstName, lastName, email, telephone, gender, birthDate, birthPlace) {
-	this.firstName = firstName;
-	this.lastName = lastName;
-	this.email = email;
-	this.telephone = telephone;
-	this.gender = gender;
-	this.birthDate = birthDate;
-	this.birthPlace = birthPlace;
+// TODO 1 : create the makePerson factory //
+function makePerson(firstName, lastName, email, telephone, gender, birthDate, birthPlace) {
+    var _person = {
+        firstName:  firstName,
+        lastName:   lastName,
+        email:      email,
+        telephone:  telephone,
+        gender:     gender,
+        birthDate:  birthDate,
+        birthPlace: birthPlace,
+        
+        name:       function() { return _person.firstName + ' ' + _person.lastName; }
+    };
+    return _person;
 };
 
-Person.prototype.fullName = function() { return this.firstName + ' ' + this.lastName; };
-Person.deserialize = function (data) {
-	var p = new Person(data.firstName, data.lastName, data.email, data.telephone, data.gender, data.birthDate, data.birthPlace);
-	return p;
+// TODO 2: expose the makePerson factory //
+module.exports.makePerson = makePerson;
+
+// TODO 3: create the deserializePerson method and expose it 
+module.exports.deserializePerson = function (data) {
+    return makePerson(data.firstName, data.lastName, data.email, data.telephone, data.gender, data.birthDate, data.birthPlace);
 }
-module.exports.Person = Person;

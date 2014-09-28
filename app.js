@@ -1,14 +1,16 @@
 #!/usr/bin/env node
 
-"use-strict";
+'use-strict';
 
+// TODO 4 : require the model module //
 const 
-    Person = require("./model").Person,
-    List = require("./util/collections").List,
-    controller = require("./controller");
+    model = require('./model'),
+    collections = require('./util/collections'),
+    controller = require('./controller');
     
-controller.init(new List('people.json', Person.deserialize));
+// TODO 5 : using the model factory, make a person object and print it to the console
+var me = model.makePerson("Jill", "Williams", "Female", "03/07/1987", "Yucaipa, California, United States");
+console.log(me);
 
+//controller.init(collections.makeList('people.json', model.deserializePerson));
 
-//people.add(new Person("", "Daneille", "Shubert", "Female", "03/07/1987", "Yucaipa, California, United States"));
-//people.add(new Person("", "John", "Fraboni", "Male", "05/17/1970", "North Bay, Ontario, Canada"));

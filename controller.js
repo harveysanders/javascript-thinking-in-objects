@@ -1,26 +1,26 @@
 "use-strict";
 
 const
-    Person = require("./model").Person,
+    model = require("./model"),
     Table = require('cli-table'),
     prmpt = require("prompt"),
     exit = require("./util/exit");
 
-var people;
+var _people;
 
-module.exports.init = function (model) {
-    people = model;
+module.exports.init = function (people) {
+    _people = people;
     
     exit.init({
-        exit: {actions: [model.saveSync.bind(model)]},
-        sigint: {actions: [model.saveSync.bind(model), process.exit]}
+        exit: {actions: [people.saveSync.bind(people)]},
+        sigint: {actions: [people.saveSync.bind(people), process.exit]}
     });
     
-    model.on('loaded', function () {
+    people.on('loaded', function () {
         showMainMenu();
     });
-    model.load();
-}
+    people.load();
+};
 
 function showMainMenu() {
     var properties = [
@@ -50,22 +50,22 @@ function showMainMenu() {
         }
     });
 
-};
+}
 module.exports.showMainMenu = showMainMenu;
 
 function showContacts() {
     var tbl = createTable();
 	var person;
-	for (var i = 0; i < people.list.length; i++) {
-	    person = people.list[i];
-	    tbl.push([i+1, person.fullName(), person.email, person.telephone, person.gender, person.birthDate, person.birthPlace]);    
+	for (var i = 0; i < _people.values.length; i++) {
+	    person = _people.values[i];
+	    tbl.push([i+1, person.name(), person.email, person.telephone, person.gender, person.birthDate, person.birthPlace]);    
 	}
     console.log(tbl.toString());
     showMainMenu();
-};
+}
 
 function addContact() {
-    console.log('Add a contact:')
+    console.log('Add a contact:');
     prmpt.get(['firstname', 
                'lastname', 
                'email', 
@@ -73,15 +73,14 @@ function addContact() {
                'gender', 
                'birthDate', 
                'birthPlace'], function (err, input) {
-        var person = new Person(input.firstname, 
-                                input.lastname, 
-                                input.email, 
-                                input.telephone, 
-                                input.gender, 
-                                input.birthDate, 
-                                input.birthPlace);
-                                
-                                
+                   var person = model.makePerson(input.firstname, 
+                                                   input.lastname, 
+                                                   input.email, 
+                                                   input.telephone, 
+                                                   input.gender, 
+                                                   input.birthDate, 
+                                                   input.birthPlace);
+        // confirm entry //
         console.log('You entered:');
         console.log(person);
         
@@ -98,18 +97,18 @@ function addContact() {
             if (err) { return onErr(err); }
             switch(result.input) {
                 case "y":
-                    people.add(person);
-                    console.log('%s was added to your contacts', person.fullName());
+                    _people.add(person);
+                    console.log('%s was added to your contacts', person.name());
                     showMainMenu();
                     break;
                 case "n":
-                    console.log('% was not added to your contacts, try again', person.fullName());
+                    console.log('% was not added to your contacts, try again', person.ame());
                     showMainMenu();
                     break;
             }
         });
   });
-};
+}
 
 function createTable () {
     var chars = {
@@ -123,9 +122,9 @@ function createTable () {
 		head: ['No.', 'Name', 'Email', 'Telephone', 'Gender', 'D.O.B.', 'Birth Place'],
 		chars: chars
 	});
-};
+}
 
 function onErr(err) {
     console.log(err);
     return 1;
-};
+}
