@@ -9,7 +9,7 @@ Create a new Cloud9 workspace for Node.js
 
 1. From your Cloud9 Dashboard, find in the upper left corner and click the green button, "Create New Workspace".
 2. Select "Clone From URL".
-3. In the "Soure URL" form input, copy and paste in the following URL:
+3. In the "Source URL" form input, copy and paste in the following URL:
         https://github.com/jfraboni/javascript-thinking-in-objects.git
 4. In the environment selection box, select "Node.js".
 5. Finally, click the green button "Create".
@@ -31,9 +31,9 @@ In most computer languages that support OOP, we have some sort of constructor me
 
 Get use to the term _instance_, you'll be using it often when discussing your work, and it generally refers to an object of a particular type that _is now in existence_.  A blueprint or a Class are abstract, they refer to the _concept_ of a type of object, whereas an instance _is_ the object.
 
-To invoke a constructor of a Class, most languages use the keyword _new_, as in `var myCar = new Car("red");`.  In this example, we've created an instance of a car, passing in the String "red" to its constructor function, presumably the color of the car, and we've assigned it to a 
+To invoke a constructor of a Class, most languages use the keyword _new_, as in `var myCar = new Car("red");`.  In this example, we've created an instance of a car, passing in the String "red" to its constructor function, presumably the color of the car, and we've assigned the new instance of the `Car to a variable named `myCar`.
 
-In fact, although there's little reason to do so, all built-in or primative objects in JavaScript, like Numbers and Strings, can be built using their constructors:
+In fact, although there's little reason to do so, all built-in or primitive objects in JavaScript, like Numbers and Strings, can be built using their constructors:
 
 ```javascript
 var num = new Number(1);
@@ -56,9 +56,11 @@ A factory is simply a function that we define, that when invoked, _initializes_ 
 
 ### Lesson Steps
 
-In this project, we're gonna build out a little _contacts_ app that reads and writes our contact information to and from the fiesystem.
+In this project, we're gonna build out a little _contacts_ app that reads and writes our contact information to and from the filesystem.
 
-In doing so, we'll also touch on modularization, facilitating better oranization of our app, addressing <a href="http://en.wikipedia.org/wiki/Separation_of_concerns" target="_blank">a seperation of concerns</a>.  The concept is we divide our app into seperate objects or modules, each module responsible for one thing and one thing only, the same way a car is made up of... you get the point.
+In doing so, we'll also touch on modularization, facilitating better oranization of our app, addressing <a href="http://en.wikipedia.org/wiki/Separation_of_concerns" target="_blank">a seperation of concerns</a>.  The concept is we divide our app into separate objects or modules, each module responsible for one thing and one thing only, the same way a car is made up of... you get the point.
+
+#### The Model
 
 To begin, we'll model a person object, because that is the datatype our contacts app will manage.  Many apps, including Facebook, model users in this way.  In fact, to illustrate, open a new tab in your browser, login to Facebook, click on your own profile to open your profile page, then, in the browser's url address bar, replace the `www` in `https://www.facebook.com/john.fraboni` with `graph` as in:
 
@@ -85,9 +87,9 @@ Get use the the term _model_; it's another word you'll use a lot to describe the
 
 One of the <a href="http://en.wikipedia.org/wiki/Software_design_pattern" target="_blank">design patterns</a> used frequently to cleanly organize sections of an application is called <a href="http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank">Model View Controller (MVC)</a>:
 
-The _model_ is the tier of the app that manages data, its access and storage, the _view_ is the part of the app responsible for displaying the model, our data, to the user, and the _controller_ handles user input from the view and manipulates data in order to present it to the user or prepare it for persistance, that is, storage on a filesystem.
+The _model_ is the tier of the app that manages data, its access and storage, the _view_ is the part of the app responsible for displaying the model, our data, to the user, and the _controller_ handles user input from the view and manipulates data in order to present it to the user or prepare it for persistence, that is, storage on a filesystem.
 
-Our contacts app will model people as objects, and we'll even <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank">serialize them to JSON</a> to persit the data on the filesystem.  We'll create a seperate module, called _model.js_ to act as the model tier of our simple app.
+Our contacts app will model people as objects, and we'll even <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank">serialize them to JSON</a> to persit the data on the filesystem.  We'll create a separate module, called _model.js_ to act as the model tier of our simple app.
 
 **TODO 1** : Open the model.js file, and create a factory function that initializes a _person_ type of Object.  The Person type of Object will hold all of the properties and behaviours of 
 
@@ -115,9 +117,9 @@ function makePerson(firstName, lastName, email, telephone, gender, birthDate, bi
 
 The `makePerson()` function takes several parameters, `firstName`, `lastName`, etc, that we assign to the properties of the same name of the newly created `_person` object.  We also define a method, a function called `name` that concatenates and returns the `firstName` and `lastName` Strings of the `_person` object; essentially a convenience behaviour of the model, so that everytime we want to display the full name of the person, we don't have to repetitiously, manually concatenate these two values.  
 
-Note the use of the underscore that prefixes the word person: `_person`.  This is a convention used often to mark properties as `private`, that is, not intended to be visiable or used outside of the scope of the current object.  As George mentioned in his post, referenced above:
+Note the use of the underscore that prefixes the word person: `_person`.  This is a convention used often to mark properties as `private`, that is, not intended to be visible or used outside of the scope of the current object.  As George mentioned in his post, referenced above:
 
-    I like an underscore prefix to indicate "this is what I'm buiding here"
+    I like an underscore prefix to indicate "this is what I'm building here"
 
 Dig this:  The `_person` object is simply an associative array!  That's right, just a container of key/value pairs that will _treat_ as a person, essentially because it http://haacked.com/archive/2014/01/04/duck-typing/acts like one, for our purposes anyway.
 
@@ -128,7 +130,7 @@ Dig this:  The `_person` object is simply an associative array!  That's right, j
 module.exports.makePerson = makePerson;
 ```
 
-While we're at it, let's set up a deserialize method, a function that knows how to read a plain JavaScript object containing person data, resusatated from JSON, and plugin that data to our factory method, creating a person object complete with its methods.
+While we're at it, let's set up a <a href="http://en.wikipedia.org/wiki/Serialization" target="_blank">deserialize method</a>, a function that knows how to read a plain JavaScript object containing person data, resusatated from JSON.  This method will pass the person data loaded from the filesystem to our factory method, creating a person object complete with its methods.
 
 This deserialize method will allow other objects to use our person datatype without having to know too much about _how_ to create it.  This is called _decoupling_, and it's a very important concept of code organization and OOP.
 
@@ -175,4 +177,9 @@ console.log(me);
 Magic!  Using the factory method of our person model module, we created a person object.  Triple A!
 
 Note how all of the code for the creation of our person model is encapsulated in the model module, leaving our main app.js file nice and clean!  This also means we can re-use the model module and its code anywhere we want!  This is a powerful feature of modularity.
+
+#### The Controller
+
+Ok, so, in our little app, again, just to demontrate seperation of concerns, we're going to add another module to take care of the logic of loading up our data, and responding to user input.
+
 
