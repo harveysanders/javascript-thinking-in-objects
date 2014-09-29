@@ -3,12 +3,13 @@
 const
     model = require("./model");
 
-function makeContacts(people, menu, contactsTable, prompt) {
+function makeContacts(people, menu, prompt, contactsTable) {
     var _contacts = {
         people:         people,
         menu:           menu,
-        contactsTable:  contactsTable,
         prompt:         prompt,
+        contactsTable:  contactsTable,
+
         
         add: function () {
             console.log('Add a contact:');

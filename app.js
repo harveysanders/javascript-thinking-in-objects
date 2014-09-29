@@ -6,6 +6,7 @@
 const 
     model = require('./model'),
     view = require('./view'),
+    prmpt = require("prompt"),
     collections = require('./util/collections'),
     controller = require('./controller'),
     exit = require("./util/exit");
@@ -15,7 +16,7 @@ const
 //console.log(me);
 
 var people = collections.makeList('people.json', model.deserializePerson);
-var contacts = controller.makeContacts(people, view.makeMenu(), view.makeContactsView(), require("prompt"));
+var contacts = controller.makeContacts(people, view.makeMenu(), prmpt, view.makeContactsView());
 
 // TODO :
 exit.init({
