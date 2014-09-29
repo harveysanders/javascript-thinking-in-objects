@@ -17,11 +17,6 @@ const
 var people = collections.makeList('people.json', model.deserializePerson);
 var contacts = controller.makeContacts(people, view.makeMenu(), view.makeContactsView(), require("prompt"));
 
-// controller.init(people, 
-//                 view.makeMenu(), 
-//                 view.makeContactsView(),
-//                 require("prompt"));
-
 // TODO :
 exit.init({
     exit: {actions: [people.saveSync.bind(people)]},
