@@ -16,7 +16,17 @@ const
 //console.log(me);
 
 var people = collections.makeList('people.json', model.deserializePerson);
-var contacts = controller.makeContacts(people, view.makeMenu(), prmpt, view.makeContactsView());
+var contacts = controller.makeContacts(people, 
+                                       view.makeMenu('Please select: (1) Show, (2) Add, (q) Quit', 
+                                                     /^[1-9q]$/), 
+                                       prmpt, 
+                                       view.makeTable(['No.', 
+                                                       'Name', 
+                                                       'Email', 
+                                                       'Telephone', 
+                                                       'Gender', 
+                                                       'D.O.B.', 
+                                                       'Birth Place']));
 
 // TODO :
 exit.init({

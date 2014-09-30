@@ -6,17 +6,23 @@ const
     deepExtend = require('deep-extend'),
     EventEmitter = require('events').EventEmitter;
 
-var menuProperties = [
-    {
-      name: 'input', 
-      validator: /^[1-9q]$/,
-      message: 'Please select: (1) Show, (2) Add, (q) Quit',
-      required: true
-    }
-];    
 
 // TODO 
-function makeMenu() {
+function makeMenu(message, validator) {
+    var menuProperties = [
+        {
+          name: 'input', 
+          required: true
+        }
+    ];
+    
+    if (message) {
+        menuProperties[0].message = message;
+    }
+    if (validator) {
+        menuProperties[0].validator = validator;
+    }
+    
     var _menu = {
         show: function() {
             prmpt.start();
@@ -31,24 +37,23 @@ function makeMenu() {
 }
 module.exports.makeMenu = makeMenu;
 
-function makeContactsView() {
-    var _contactsTable = {
-        show: function(contacts) {
-            var table = createTable();
-            var contact;
-            for (var i = 0; i < contacts.values.length; i++) {
-                contact = contacts.values[i];
-                table.push([i+1, contact.name(), contact.email, contact.telephone, contact.gender, contact.birthDate, contact.birthPlace]);
-            }
+function makeTable(headers) {
+    var _table = {
+        show: function(values) {
+            var table = createTable(headers);
+            table.push.apply(table, values);
             console.log(table.toString());
         }
     }
-    return _contactsTable;
+    return _table;
 }
-module.exports.makeContactsView = makeContactsView;
+module.exports.makeTable = makeTable;
 
 
-function createTable () {
+/**
+ * Takes an Array of String to serve as the table headers.
+ */
+function createTable (headers) {
     var chars = {
         'top': '═', 'top-mid': '╤', 'top-left': '╔', 'top-right': '╗',
         'bottom': '═', 'bottom-mid': '╧', 'bottom-left': '╚',
@@ -57,7 +62,7 @@ function createTable () {
     };
     
     return new Table({
-        head: ['No.', 'Name', 'Email', 'Telephone', 'Gender', 'D.O.B.', 'Birth Place'],
+        head: headers,
         chars: chars
     });
 }

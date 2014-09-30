@@ -9,17 +9,16 @@ function makeContacts(people, menu, prompt, contactsTable) {
         menu:           menu,
         prompt:         prompt,
         contactsTable:  contactsTable,
-
         
         add: function () {
             console.log('Add a contact:');
             prompt.get(['firstname', 
-                       'lastname', 
-                       'email', 
-                       'telephone', 
-                       'gender', 
-                       'birthDate', 
-                       'birthPlace'], 
+                        'lastname', 
+                        'email', 
+                        'telephone', 
+                        'gender', 
+                        'birthDate', 
+                        'birthPlace'], 
                        function (err, input) {
                            var person = model.makePerson(input.firstname, 
                                                          input.lastname, 
@@ -63,7 +62,7 @@ function makeContacts(people, menu, prompt, contactsTable) {
     function onUserInput(input) {
         switch(input) {
             case "1":
-                _contacts.contactsTable.show(_contacts.people);
+                _contacts.contactsTable.show(prepareValues(_contacts.people.values));
                 _contacts.menu.show();
                 break;
             case "2":
@@ -74,6 +73,22 @@ function makeContacts(people, menu, prompt, contactsTable) {
                 process.exit(0);
                 break;
         }
+    }
+    
+    function prepareValues(values) {
+        var prepared = [];
+        var contact;
+        for (var i = 0; i < values.length; i++) {
+            contact = values[i];
+            prepared.push([i+1, 
+                          contact.name(), 
+                          contact.email, 
+                          contact.telephone, 
+                          contact.gender, 
+                          contact.birthDate, 
+                          contact.birthPlace]);
+        }
+        return prepared;
     }
     
     // TODO : 
