@@ -8,20 +8,24 @@ const
 
 
 // TODO 
+/**
+ * makeMenu A factory that returns a menu object capable of prompting a user 
+ *      for input.  On input, dispatches the 'userInput' event along with the input.
+ * @param {String} message The menu selection text to be shown to the user, 
+ *      usually someting like (1) Show, (2) Add, (q) Quit:.
+ * @param {RegEx} validator A regular expression to validate user input.
+
+ * @extends {events.EventEmitter}
+ */
 function makeMenu(message, validator) {
     var menuProperties = [
         {
           name: 'input', 
-          required: true
+          required: true,
+          message: message,
+          validator: validator
         }
     ];
-    
-    if (message) {
-        menuProperties[0].message = message;
-    }
-    if (validator) {
-        menuProperties[0].validator = validator;
-    }
     
     var _menu = {
         show: function() {
@@ -40,7 +44,7 @@ module.exports.makeMenu = makeMenu;
 function makeTable(headers) {
     var _table = {
         show: function(values) {
-            var table = createTable(headers);
+            var table = createFormattedTable(headers);
             table.push.apply(table, values);
             console.log(table.toString());
         }
@@ -51,9 +55,10 @@ module.exports.makeTable = makeTable;
 
 
 /**
- * Takes an Array of String to serve as the table headers.
+ * A private utility function that creates and returns a table 
+ * object formatted with the given Array of String as headers.
  */
-function createTable (headers) {
+function createFormattedTable (headers) {
     var chars = {
         'top': '═', 'top-mid': '╤', 'top-left': '╔', 'top-right': '╗',
         'bottom': '═', 'bottom-mid': '╧', 'bottom-left': '╚',

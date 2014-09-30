@@ -91,7 +91,7 @@ The _model_ is the tier of the app that manages data, its access and storage, th
 
 Our contacts app will model people as objects, and we'll even <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify" target="_blank">serialize them to JSON</a> to persit the data on the filesystem.  We'll create a separate module, called _model.js_ to act as the model tier of our simple app.
 
-**TODO 1** : Open the model.js file, and create a factory function that initializes a _person_ type of Object.  The Person type of Object will hold all of the properties and behaviours of 
+**TODO 1** : Open the **model.js** file, and create a factory function that initializes a _person_ type of Object.  The Person type of Object will hold all of the properties and behaviours of 
 
 
 
@@ -180,6 +180,6 @@ Note how all of the code for the creation of our person model is encapsulated in
 
 #### The Controller
 
-Ok, so, in our little app, again, just to demontrate seperation of concerns, we're going to add another module to take care of the logic of loading up our data, and responding to user input.
+Ok, so, in our little app, again, just to demontrate seperation of concerns, we're going to add another module to take care of the logic of loading up our data, preparing that data to show it to our user, and finally responding to user input.
 
-
+Open up the **controller.js** file.

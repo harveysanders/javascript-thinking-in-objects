@@ -3,12 +3,12 @@
 const
     model = require("./model");
 
-function makeContacts(people, menu, prompt, contactsTable) {
+function makeContacts(people, menu, prompt, table) {
     var _contacts = {
-        people:         people,
-        menu:           menu,
-        prompt:         prompt,
-        contactsTable:  contactsTable,
+        people: people,
+        menu:   menu,
+        prompt: prompt,
+        table:  table,
         
         add: function () {
             console.log('Add a contact:');
@@ -19,14 +19,14 @@ function makeContacts(people, menu, prompt, contactsTable) {
                         'gender', 
                         'birthDate', 
                         'birthPlace'], 
-                       function (err, input) {
-                           var person = model.makePerson(input.firstname, 
-                                                         input.lastname, 
-                                                         input.email, 
-                                                         input.telephone, 
-                                                         input.gender, 
-                                                         input.birthDate, 
-                                                         input.birthPlace);
+                        function (err, input) {
+                            var person = model.makePerson(input.firstname, 
+                                                          input.lastname, 
+                                                          input.email, 
+                                                          input.telephone, 
+                                                          input.gender, 
+                                                          input.birthDate, 
+                                                          input.birthPlace);
                 // confirm entry //
                 console.log('You entered:');
                 console.log(person);
@@ -62,7 +62,7 @@ function makeContacts(people, menu, prompt, contactsTable) {
     function onUserInput(input) {
         switch(input) {
             case "1":
-                _contacts.contactsTable.show(prepareValues(_contacts.people.values));
+                _contacts.table.show(prepareValues(_contacts.people.values));
                 _contacts.menu.show();
                 break;
             case "2":
@@ -73,22 +73,6 @@ function makeContacts(people, menu, prompt, contactsTable) {
                 process.exit(0);
                 break;
         }
-    }
-    
-    function prepareValues(values) {
-        var prepared = [];
-        var contact;
-        for (var i = 0; i < values.length; i++) {
-            contact = values[i];
-            prepared.push([i+1, 
-                          contact.name(), 
-                          contact.email, 
-                          contact.telephone, 
-                          contact.gender, 
-                          contact.birthDate, 
-                          contact.birthPlace]);
-        }
-        return prepared;
     }
     
     // TODO : 
@@ -103,6 +87,22 @@ function makeContacts(people, menu, prompt, contactsTable) {
     return _contacts;
 }
 module.exports.makeContacts = makeContacts;
+
+function prepareValues(values) {
+    var prepared = [];
+    var contact;
+    for (var i = 0; i < values.length; i++) {
+        contact = values[i];
+        prepared.push([i+1, 
+                      contact.name(), 
+                      contact.email, 
+                      contact.telephone, 
+                      contact.gender, 
+                      contact.birthDate, 
+                      contact.birthPlace]);
+    }
+    return prepared;
+}
 
 function onErr(err) {
     console.log(err);
