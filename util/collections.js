@@ -43,7 +43,7 @@ function makeList(filepath, deserialize) {
             });
         },
         
-        // TODO 7
+        // TODO 7 : add the saveSync method //
         saveSync: function () {
             fs.writeFileSync(_list.filepath, freezer.serialize(_list.filepath, _list.values));
             console.log('List.saveSync: saved synchronously');

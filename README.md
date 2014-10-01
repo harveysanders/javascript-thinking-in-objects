@@ -204,7 +204,7 @@ Before we use these modules, let's open up the collections module to add some ne
 **TODO 7 :**  Open up the **collections.js** file, add a saveSync method to the list object definition:
 
 ```javascript
-// TODO 7 : addd the saveSync method //
+// TODO 7 : add the saveSync method //
 saveSync: function () {
     fs.writeFileSync(_list.filepath, freezer.serialize(_list.filepath, _list.values));
     console.log('List.saveSync: saved synchronously');
@@ -274,7 +274,7 @@ You did that!
 1. delete the code from TODO 5: Were we created the `me` person.
 2. delete the code from TODO 9: Were we added the `me` person to the `people` list.
 
-Those steps were to merely illustrate using our person model and our people list - and leaving them in while duplicate our me person everytime we run the app, and we don't want this to happen!
+Those steps were to merely illustrate using our person model and our people list - and leaving them in while duplicate our me person every time we run the app, and we don't want this to happen!
 
 #### The View
 
