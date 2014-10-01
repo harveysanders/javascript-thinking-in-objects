@@ -7,6 +7,7 @@ const
     EventEmitter = require('events').EventEmitter;
 
 
+// TODO 
 /**
  * makeMenu A factory that returns a menu object capable of prompting a user 
  *      for input.  On input, dispatches the 'userInput' event along with the input.
@@ -27,7 +28,17 @@ function makeMenu(message, validator) {
     ];
     
     // TODO 11 : Create the menu object returned by the makeMenu factory // 
-    
+    var _menu = {
+        show: function() {
+            prmpt.start();
+            prmpt.get(menuProperties, function (err, result) {
+                if (err) { return onErr(err); }
+                _menu.emit('userInput', result.input);
+            });
+        }
+    };
+    deepExtend(_menu, new EventEmitter());
+    return _menu;
     
     // END TODO 11 
 }
