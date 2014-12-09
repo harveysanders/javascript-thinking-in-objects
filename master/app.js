@@ -16,10 +16,9 @@ const
     controller = require('./controller');
     
 // TODO 5 : using the model factory, make a person object and print it to the console //
-// var me = model.makePerson("Jill", "Williams", "jill@gmail.com", "555-555-5555", "Female", "03/07/1987", "Yucaipa, California, United States");
-// console.log(me);
+    var me = model.makePerson("Jill", "Williams", "jill@gmail.com", "555-555-5555", "Female", "03/07/1987", "Yucaipa, California, United States");
+    console.log(me);
 
-    var me = model.makePerson("Harvey", "Sanders", "sanders.harvey@gmail.com", "555-555-5555", "Male", "03/07/1983" ) 
 
 // TODO 8 : create a list object that will manage a collection of people //
 var people = collections.makeList('people.json', model.makePersonFromJSON);
