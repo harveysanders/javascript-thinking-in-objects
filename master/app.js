@@ -19,6 +19,8 @@ const
 // var me = model.makePerson("Jill", "Williams", "jill@gmail.com", "555-555-5555", "Female", "03/07/1987", "Yucaipa, California, United States");
 // console.log(me);
 
+    var me = model.makePerson("Harvey", "Sanders", "sanders.harvey@gmail.com", "555-555-5555", "Male", "03/07/1983" ) 
+
 // TODO 8 : create a list object that will manage a collection of people //
 var people = collections.makeList('people.json', model.makePersonFromJSON);
 
