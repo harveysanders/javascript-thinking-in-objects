@@ -132,7 +132,7 @@ module.exports.makePerson = makePerson;
 
 Creating a Node.js module is fairly straight forward: You need only require any other required modules, then export any API.  To use your module, you use the require directive from within another module, and we'll do this shortly in our app.js file.  When we do so, Node will take care of all the wiring for us, making our module's API available for usage.
 
-**TODO 3 :** While we're at it, let's set up a <a href="http://en.wikipedia.org/wiki/Serialization" target="_blank">deserialize method</a>, a function that knows how to read a plain JavaScript object containing person data, resusatated from JSON.  This method will pass the person data loaded from the filesystem to our factory method, creating a person object complete with its methods.
+**TODO 3 :** While we're at it, let's set up a <a href="http://en.wikipedia.org/wiki/Serialization" target="_blank">deserialize method</a>, a function that knows how to read a plain JavaScript object containing person data, resuscitated from JSON.  This method will pass the person data loaded from the filesystem to our factory method, creating a person object complete with its methods.
 
 This deserialize method will allow other objects to use our person datatype without having to know too much about _how_ to create it.  This is called _decoupling_, and it's a very important concept of code organization and OOP.
 
@@ -153,7 +153,7 @@ const
     model = require('./model');
 ```
 
-Cool, we've now imported the model module into our app, we can begin to use our person custom datatype!  <a href="http://nodejs.org/api/modules.html" target="_blank"></a>There's a more to learn about Node.js modules, there definitions and importations, but that's the basics!
+Cool, we've now imported the model module into our app, we can begin to use our person custom datatype!  <a href="http://nodejs.org/api/modules.html" target="_blank"></a>There's a lot more to learn about Node.js modules, there are definitions and importations, but that's the basics!
 
 **TODO 5** 
 
