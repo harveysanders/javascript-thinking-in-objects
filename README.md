@@ -121,7 +121,7 @@ Note the use of the underscore that prefixes the word person: `_person`.  This i
 
     I like an underscore prefix to indicate "this is what I'm building here"
 
-Dig this:  The `_person` object is simply an associative array!  That's right, just a container of key/value pairs that will _treat_ as a person, essentially because it http://haacked.com/archive/2014/01/04/duck-typing/acts like one, for our purposes anyway.
+Dig this:  The `_person` object is simply an associative array!  That's right, just a container of key/value pairs that we will _treat_ as a person, essentially because it <a href="http://haacked.com/archive/2014/01/04/duck-typing/">acts</a> like one, for our purposes anyway.
 
 **TODO 2 :** Alrighty, because we're building a little Node.js command-line utility, let's expose our person model factory as a module.  In the Node.js environment, modules are objects that encapsulate their concerns, that is, hide their inner workings from outside clients, and expose an API through an `exports` object on the `module` object. So, in order for us to access our person factory, we need to export it:
 
