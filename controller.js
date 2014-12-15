@@ -48,7 +48,7 @@ function makeContacts(people, menu, prompt, table) {
                             console.log('%s was added to your contacts', person.name());
                             break;
                         case "n":
-                            console.log('% was not added to your contacts, try again', person.ame());
+                            console.log('% was not added to your contacts, try again', person.name());
                             break;
                     }
                     menu.show();
