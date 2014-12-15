@@ -9,9 +9,11 @@ const
     
     // TODO 6 : require the collections and exit utility modules //
     collections = require('./util/collections'),
-    exit = require('./util/exit');
+    exit = require('./util/exit'),
     // TODO 16 : require the view, prompt, and controller modules //
-    
+    view = require('./view'),
+    prmpt = require('./prompt'),
+    controller = require("./controller");
     
 // TODO 5 : using the model factory, make a person object and print it to the console //
 

@@ -60,16 +60,31 @@ function makeContacts(people, menu, prompt, table) {
     // OTHER INITIALIZATION //
     
     // TODO 12 : create the onUserInput event listener //
+    function onUserInput(input) {
+        switch(input) {
+            case "1":
+                _contacts.table.show(prepareValues(_contacts.people.values));
+                _contacts.menu.show();
+                break;
+            case "2":
+                console.log('Peace out: shutting down...');
+                process.exit(0);
+                break;
+        }
+    }
     
     
     // TODO 13 : on the menu object, listen for the userInput event //
+    menu.on('userInput', onUserInput);
     
     
     // TODO : 14 on the people object, listen for the loaded event //
-    
+    people.once('loaded', function() {
+        menu.show();
+    })
     
     // TODO 15 : call the load method on the people object //
-    
+    people.load();
     
     return _contacts;
 }
