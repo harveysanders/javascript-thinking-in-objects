@@ -48,7 +48,7 @@ function makeTable(headers) {
         show: function(values) {
             var table = createFormattedTable(headers);
             table.push.apply(table, values);
-            console.log(table.toString());
+            console.log(table);
         }
     };
     return _table;
