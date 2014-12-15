@@ -1,7 +1,7 @@
 'use-strict';
 
 // TODO 1 : create the makePerson factory //
-function makePerson(firstName, lastName, email, telephone, gender, birthDate) {
+function makePerson(firstName, lastName, email, telephone, gender, birthDate, birthPlace) {
     var _person = {
         firstName: firstName,
         lastName: lastName,
@@ -9,6 +9,7 @@ function makePerson(firstName, lastName, email, telephone, gender, birthDate) {
         telephone: telephone,
         gender: gender,
         birthDate: birthDate,
+        birthPlace: birthPlace,
         
         name:   function() {
             return _person.firstName + ' ' + _person.lastName;
