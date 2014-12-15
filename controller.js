@@ -67,6 +67,9 @@ function makeContacts(people, menu, prompt, table) {
                 _contacts.menu.show();
                 break;
             case "2":
+                _contacts.add();
+                break;
+            case "q":
                 console.log('Peace out: shutting down...');
                 process.exit(0);
                 break;
@@ -81,7 +84,7 @@ function makeContacts(people, menu, prompt, table) {
     // TODO : 14 on the people object, listen for the loaded event //
     people.once('loaded', function() {
         menu.show();
-    })
+    });
     
     // TODO 15 : call the load method on the people object //
     people.load();

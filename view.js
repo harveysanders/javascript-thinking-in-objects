@@ -50,7 +50,7 @@ function makeTable(headers) {
             table.push.apply(table, values);
             console.log(table.toString());
         }
-    }
+    };
     return _table;
 }
 module.exports.makeTable = makeTable;

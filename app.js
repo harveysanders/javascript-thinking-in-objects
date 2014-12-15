@@ -32,5 +32,13 @@ exit.init( {
 });
 
 // TODO 17 : initialize the controller, passing in the required model and views //
-
+controller.makeContacts(people, view.makeMenu('Please select: (1) Show, (2) Add, (q) Quit', 
+/^[1-9q]$/), prmpt, view.makeTable(
+    ['No.',
+    'Name',
+    'Email',
+    'Telephone',
+    'Gender',
+    'D.O.B.',
+    'Birth Place']));
 
