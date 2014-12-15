@@ -274,13 +274,13 @@ You did that!
 1. delete the code from TODO 5: Where we created the `me` person.
 2. delete the code from TODO 9: Where we added the `me` person to the `people` list.
 
-Those steps were to merely illustrate using our person model and our people list - and leaving them in while duplicate our me person every time we run the app, and we don't want this to happen!
+Those steps were to merely illustrate using our person model and our people list - and leaving them in will duplicate our me person every time we run the app, and we don't want this to happen!
 
 #### The View
 
 Ok, the view in an MVC app is merely responsible for displaying our data, and usually provides some means of interacting with our data.
 
-For the sake of reusablity, we want to separate the rendering of the data from any decisions from interacting with that data. In short, the view just displays stuff, and doesn't care what happens when the user interacts with it.  Our controller will respond to user input, and in doing so, the same view could behave differently if pair with a different controller.  Cool, eh?
+For the sake of reusablity, we want to separate the rendering of the data from any decisions for interacting with that data. In short, the view just displays stuff, and doesn't care what happens when the user interacts with it.  Our controller will respond to user input, and in doing so, the same view could behave differently if pair with a different controller.  Cool, eh?
 
 Let's make a very flexible menu that will take a String of menu options to show the user, then dispatch an event with the user's selection.
 
@@ -298,7 +298,7 @@ Let's make a very flexible menu that will take a String of menu options to show 
         }
     };
     deepExtend(_menu, new EventEmitter());
-    return _menu
+    return _menu;
     
     // END TODO 11 //
 ```
