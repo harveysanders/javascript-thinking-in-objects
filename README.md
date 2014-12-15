@@ -271,8 +271,8 @@ You did that!
 
 **IMPORTANT** BEFORE WE MOVE ON, let's remove some code from a few steps in the app.js file:
 
-1. delete the code from TODO 5: Were we created the `me` person.
-2. delete the code from TODO 9: Were we added the `me` person to the `people` list.
+1. delete the code from TODO 5: Where we created the `me` person.
+2. delete the code from TODO 9: Where we added the `me` person to the `people` list.
 
 Those steps were to merely illustrate using our person model and our people list - and leaving them in while duplicate our me person every time we run the app, and we don't want this to happen!
 
