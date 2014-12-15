@@ -12,7 +12,7 @@ const
     exit = require('./util/exit'),
     // TODO 16 : require the view, prompt, and controller modules //
     view = require('./view'),
-    prmpt = require('./prompt'),
+    prmpt = require('prompt'),
     controller = require("./controller");
     
 // TODO 5 : using the model factory, make a person object and print it to the console //
