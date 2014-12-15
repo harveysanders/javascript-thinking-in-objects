@@ -26,8 +26,18 @@ function makeMenu(message, validator) {
         }
     ];
     
-    // TODO 11 : Create the menu object returned by the makeMenu factory // 
-    
+    // TODO 11 : Create the menu object returned by the makeMenu factory //
+    var _menu = {
+        show: function() {
+            prmpt.start();
+            prmpt.get(menuProperties, function (err, result) {
+                if (err) {return onErr(err); }
+                _menu.emit('userInput', result.input);
+            });
+        }
+    };
+    deepExtend(_menu, new EventEmitter());
+    return _menu;
     
     // END TODO 11 
 }
