@@ -23,5 +23,5 @@ module.exports.makePerson = makePerson;
 
 // TODO 3: create the makePersonFromJSON method and expose it 
 module.exports.makePersonFromJSON = function (data) {
-    return makePerson(data.firstName, data.lastName , data.email, data.telephone, data.gender, data.birthDate);
+    return makePerson(data.firstName, data.lastName, data.email, data.telephone, data.gender, data.birthDate, data.birthPlace);
 }
